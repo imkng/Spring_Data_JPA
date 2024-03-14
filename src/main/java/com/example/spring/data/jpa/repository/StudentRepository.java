@@ -2,9 +2,11 @@ package com.example.spring.data.jpa.repository;
 
 import com.example.spring.data.jpa.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,4 +36,12 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             nativeQuery = true
     )
     public List<Student> getStudentsBasedOnFirstNameBasedOnParam(@Param("firstName") String firstName);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "update tbl_student s set s.first_name = ?1  where s.email_address =?2",
+            nativeQuery = true
+    )
+    public int modifyStudentsFirstNameBasedOnEmail(String firstName, String emailId);
 }

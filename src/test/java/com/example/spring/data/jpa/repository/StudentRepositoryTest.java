@@ -71,5 +71,10 @@ class StudentRepositoryTest {
         List<Student> students = studentRepository.getStudentsBasedOnFirstName("krishna");
         System.out.println(students);
     }
+    @Test
+    public void modifyStudentsFirstNameBasedOnEmail(){
+        int student = studentRepository.modifyStudentsFirstNameBasedOnEmail("krishna1", "shivam3@gmail.com");
+        System.out.println(student);
+    }
 
 }
