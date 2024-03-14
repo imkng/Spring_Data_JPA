@@ -3,6 +3,7 @@ package com.example.spring.data.jpa.repository;
 import com.example.spring.data.jpa.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +27,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             nativeQuery = true
     )
     public List<Student> getStudentsBasedOnFirstName(String firstName);
+
+    //native Sql query will based on table in dB
+    @Query(
+            value = "Select * from tbl_student s where s.first_name =?firstName",
+            nativeQuery = true
+    )
+    public List<Student> getStudentsBasedOnFirstNameBasedOnParam(@Param("firstName") String firstName);
 }
